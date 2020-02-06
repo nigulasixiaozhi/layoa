@@ -41,7 +41,7 @@
 		<!-- 配置Mybatis的配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/mybaits-config.xml" />
 		<!-- 配置Mybatis的映射文件 -->
-		<!-- <property name="mapperLocations" value="classpath:mybatis/mappers/*-mapper.xml" /> -->
+		<property name="mapperLocations" value="classpath:mybatis/mappers/*-mapper.xml" /> 
 	</bean>
 
 	<!-- 使用 MapperScannerConfigurer,将 会 查 找 类 路 径 下 的 映 射 器 并 自 动 将 它 们 创 建 成 MapperFactoryBean -->
