@@ -13,12 +13,32 @@
 		(#{roleCode},#{roleName},#{roleKind},#{roleInfo},#{createBy},#{createDate},#{activeFlag});
 	</insert>
 	
+	<update id="update" parameterType="role">
+		UPDATE TB_ROLE SET 
+		ROLE_CODE=#{roleCode},ROLE_NAME=#{roleName},ROLE_KIND=#{roleKind},ROLE_INFO=#{roleInfo}
+		WHERE ROW_ID=#{rowId}
+	</update>
+	
+	<delete id="del">
+		DELETE FROM TB_ROLE WHERE ROW_ID=#{rowId}
+	</delete>
+	
 	<select id="findAll" resultType="role">
-		SELECT ROW_ID,<include refid="COLUM"></include> FROM TB_ROLE WHERE ACTIVE_FLAG=1;
+		SELECT ROW_ID,<include refid="COLUM"></include> FROM TB_ROLE WHERE ACTIVE_FLAG=1
+		LIMIT #{currPage},#{pageSize};
+	</select>
+	
+	<select id="findById" resultType="role">
+		SELECT ROW_ID,<include refid="COLUM"></include>
+		 FROM TB_ROLE WHERE ACTIVE_FLAG=1 AND ROW_ID=#{rowId};
 	</select>
 	
 	<select id="checkName" resultType="java.lang.String">
 		SELECT ROLE_NAME FROM TB_ROLE WHERE ROLE_NAME = #{roleName};
+	</select>
+	
+	<select id="sumCount" resultType="java.lang.Integer">
+		SELECT COUNT(ROW_ID) FROM TB_ROLE WHERE ACTIVE_FLAG=1;
 	</select>
 
 </mapper>
