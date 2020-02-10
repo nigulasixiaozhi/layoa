@@ -47,8 +47,8 @@ public class RoleController {
 	}
 	
 	@GetMapping("/findAll/{curr}/{limit}")
-	public LayResult findAll(@PathVariable Integer curr,@PathVariable Integer limit){
-		return this.roleService.findAll(curr,limit);
+	public LayResult findAll(@PathVariable Integer curr,@PathVariable Integer limit,Role role){
+		return this.roleService.findAll(curr,limit,role);
 	}
 	
 	@PostMapping

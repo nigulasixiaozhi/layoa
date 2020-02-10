@@ -7,7 +7,7 @@ public interface RoleService {
 	
 	Long add(Role role);
 	
-	LayResult findAll(Integer curr,Integer limit);
+	LayResult findAll(Integer curr,Integer limit,Role role);
 	
 	Role findById(Long rowId);
 	

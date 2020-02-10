@@ -12,7 +12,7 @@ public interface RoleDao {
 	
 	Long add(Role role);
 	
-	List<Role> findAll(@Param("currPage") Integer curr,@Param("pageSize") Integer limit);
+	List<Role> findAll(@Param("currPage") Integer curr,@Param("pageSize") Integer limit,@Param("searchParam") Role role);
 	
 	Role findById(Long rowId);
 	
@@ -22,5 +22,5 @@ public interface RoleDao {
 	
 	String checkName(String roleName);
 	
-	Integer sumCount();
+	Integer sumCount(@Param("searchParam")Role role);
 }

@@ -7,6 +7,17 @@
 			ROLE_CODE,ROLE_NAME,ROLE_KIND,ROLE_INFO,CREATE_BY,CREATE_DATE,ACTIVE_FLAG
 		</sql>
 
+		<sql id="search">
+			<if test="searchParam!=null">
+				<if test="searchParam.roleKind!=null">
+				 AND ROLE_KIND=#{searchParam.roleKind}
+				</if>
+				<if test="searchParam.roleName!=null">
+				 AND ROLE_NAME=#{searchParam.roleName}
+				</if>
+			</if>
+		</sql>
+
 	<insert id="add" parameterType="role" useGeneratedKeys="true" keyColumn="ROW_ID" keyProperty="rowId">
 		INSERT INTO TB_ROLE (<include refid="COLUM"></include>)
 		VALUES
@@ -24,7 +35,8 @@
 	</delete>
 	
 	<select id="findAll" resultType="role">
-		SELECT ROW_ID,<include refid="COLUM"></include> FROM TB_ROLE WHERE ACTIVE_FLAG=1
+		SELECT ROW_ID,<include refid="COLUM"></include> FROM TB_ROLE 
+		WHERE ACTIVE_FLAG=1 <include refid="search"></include>
 		LIMIT #{currPage},#{pageSize};
 	</select>
 	
@@ -38,7 +50,8 @@
 	</select>
 	
 	<select id="sumCount" resultType="java.lang.Integer">
-		SELECT COUNT(ROW_ID) FROM TB_ROLE WHERE ACTIVE_FLAG=1;
+		SELECT COUNT(ROW_ID) FROM TB_ROLE
+		 WHERE ACTIVE_FLAG=1 <include refid="search"></include>;
 	</select>
 
 </mapper>

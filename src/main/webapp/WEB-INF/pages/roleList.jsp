@@ -8,6 +8,34 @@
 </head>
 <body>
 	<button id="add" type="button" class="layui-btn">新增</button>
+	<div class="layui-row">
+	    <div class="layui-col-md8">
+		    <form class="layui-form" action="">
+				<div class="layui-inline">
+			    <label class="layui-form-label">选择框</label>
+			    <div class="layui-input-inline">
+			      <select name="roleKind">
+			      	<option value="">请选择</option>
+			        <option value="1">超级角色</option>
+			        <option value="0">普通角色</option>
+			      </select>
+			    </div>
+			  </div>		
+			   <div class="layui-inline">
+			   			<label class="layui-form-label">输入框</label>
+			   			<div class="layui-input-inline">	
+			      		<input type="text" name="roleName" required  placeholder="请输入名称" autocomplete="off" class="layui-input">
+			   	 		</div>
+			  	</div>
+			  	<div class="layui-inline">
+	    			<div class="layui-input-inline">
+	     				 <button class="layui-btn" lay-submit lay-filter="formSearch">搜索</button>
+	      					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	    			</div>
+  				</div>
+			 </form>
+		</div>
+  </div>
 	<table id="roleList" lay-filter="roleList"></table>
 
 <script src="assert/layui/layui.js" type="text/javascript" charset="utf-8"></script>
@@ -60,40 +88,43 @@
 				}
 			})
 
-			//监听提交
+			//搜索按钮
+			form.on('submit(formSearch)',function(data){
+				console.log(data.field);
+				 table.reload('roleList',{
+					 where : data.field,
+					  page: {
+						    curr: 1 //重新从第 1 页开始
+						  }
+				  });
+				 return false;
+			})
+			
+			//表格按钮提交
 			form.on('submit(formDemo)', function(data) {
 				var data = form.val("role_form");
+				var type = "post";
+				var msg = "添加成功";
 				//console.log(data);
 				if($("#rowId").val()){
 					//修改角色
-					$.ajax({
-						type : "put",
-						url : "role",
-						data : data,
-						success : function(res) {
-							if (res) {
-								layer.msg("修改成功");
-								table.reload('roleList');
-								layer.closeAll('page'); 
-							}
-						}
-					})
-				}else{
+					type = "put";
+					msg = "修改成功"
+				}
 					//添加角色
 					$.ajax({
-						type : "post",
+						type : type,
 						url : "role",
 						data : data,
 						success : function(res) {
 							if (res) {
-								layer.msg("添加成功");
+								layer.msg(msg);
 								table.reload('roleList');
 								layer.closeAll('page'); 
 							}
 						}
 					})
-				}
-				
+							
 				return false;
 			});
 			
@@ -146,7 +177,6 @@
 							  success:function(res){
 								  if(res){
 									  table.reload('roleList',{
-					//如果删除的数据在一页里只有一个，那么表格重载时在当前分页获取数据为空
 										  page: {
 											    curr: 1 //重新从第 1 页开始
 											  }

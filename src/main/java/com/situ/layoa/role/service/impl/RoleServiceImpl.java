@@ -10,6 +10,7 @@ import com.situ.layoa.base.LayResult;
 import com.situ.layoa.role.dao.RoleDao;
 import com.situ.layoa.role.domain.Role;
 import com.situ.layoa.role.service.RoleService;
+import com.situ.layoa.utils.PageUtils;
 
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -27,10 +28,11 @@ public class RoleServiceImpl implements RoleService{
 
 
 	@Override
-	public LayResult findAll(Integer curr,Integer limit) {
+	public LayResult findAll(Integer curr,Integer limit,Role role) {
 		Integer currPage = (curr-1)*limit;
-		List<Role> roleList =  this.roleDao.findAll(currPage,limit);
-		Integer count = this.roleDao.sumCount();
+		role =  PageUtils.buildSearchParam(role);
+		List<Role> roleList =  this.roleDao.findAll(currPage,limit,role);
+		Integer count = this.roleDao.sumCount(role);
 		LayResult result = new LayResult(0, "",count, roleList);
 		return result;
 	}
