@@ -10,7 +10,7 @@
 		<spring.version>5.2.3.RELEASE</spring.version>
 		<mybatis.version>3.5.3</mybatis.version>
 		<mybatis.spring.version>2.0.2</mybatis.spring.version>
-		<jackson.version>2.9.5</jackson.version>
+		<jackson.version>2.9.10.7</jackson.version>
 		<junit.version>4.13</junit.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
